@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/signin_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zaher.news247.Activities.LoginActivity">
+<LinearLayout
+    android:padding="75dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:dividerPadding="1000000dp">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        >
+    <EditText
+
+        android:id="@+id/email_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/sign_in_email_hint"
+        android:inputType="textEmailAddress"
+
+        >
+    </EditText>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        app:passwordToggleEnabled="true">
+        <EditText
+            android:id="@+id/password_sign_in"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:hint="@string/sign_in_password_hint"
+            android:inputType="textPassword"
+            >
+        </EditText>
+    </android.support.design.widget.TextInputLayout>
+
+   <Button
+       android:id="@+id/sign_in_button"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@color/colorPrimary"
+       android:textColor="#FFFFFF"
+       android:text="@string/sign_in_button"
+       />
+    <TextView
+        android:id="@+id/sign_up_text"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in_sign_up"
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
+</ScrollView>
+</android.support.design.widget.CoordinatorLayout>

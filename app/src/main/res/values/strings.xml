@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">News 24/7</string>
+    <string name="sign_in_email_hint">Email</string>
+    <string name="sign_in_password_hint">Password</string>
+    <string name="sign_in_button">SIGN IN</string>
+    <string name="sign_in_sign_up">Not a member? sign up here</string>
+
+    <string name="sign_up_email_hint">Email</string>
+    <string name="sign_up_password_hint">Password</string>
+    <string name="sign_up_password1_hint">Password</string>
+    <string name="sign_up_button">SIGN UP</string>
+
+    <string name="article_author">Written By: </string>
+    <string name="article_source">Original Source: </string>
+    <string name="article_date">Published in: </string>
+    <string name="article_full">Click here to read full article</string>
+</resources>
