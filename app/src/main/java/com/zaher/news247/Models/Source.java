@@ -13,6 +13,9 @@ public class Source implements Parcelable {
     String id;
     String name;
 
+    public Source(){
+        super();
+    }
     @Override
     public int describeContents() {
         return 0;

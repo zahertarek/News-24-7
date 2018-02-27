@@ -16,6 +16,10 @@ public class Article implements Parcelable {
     String urlToImage;
     String publishedAt;
 
+
+    public Article(){
+        super();
+    }
     @Override
     public int describeContents() {
         return 0;

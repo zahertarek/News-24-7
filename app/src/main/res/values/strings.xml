@@ -14,4 +14,16 @@
     <string name="article_source">Original Source: </string>
     <string name="article_date">Published in: </string>
     <string name="article_full">Click here to read full article</string>
+
+    <string name="nav_business">Business</string>
+    <string name="nav_entertainment">Entertainment</string>
+    <string name="nav_general">General</string>
+    <string name="nav_health">Health</string>
+    <string name="nav_science">Science</string>
+    <string name="nav_sport">Sport</string>
+    <string name="nav_technology">Technology</string>
+
+    <string name="sign_out_item">Sign Out</string>
+
+
 </resources>

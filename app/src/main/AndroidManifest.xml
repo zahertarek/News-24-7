@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".Activities.SignupActivity" />
         <activity android:name=".Activities.NewsActivity" />
-        <activity android:name=".Activities.NewsDetailActivity"></activity>
+        <activity android:name=".Activities.NewsDetailActivity" />
+        <activity android:name=".Activities.FavoritesActivity"></activity>
     </application>
 
 </manifest>

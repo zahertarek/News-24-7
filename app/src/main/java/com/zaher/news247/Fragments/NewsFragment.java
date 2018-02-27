@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,7 +42,7 @@ public class NewsFragment extends Fragment {
     LinearLayoutManager linearLayoutManager;
     RecyclerView recyclerView;
     NewsAdapter newsAdapter;
-    List<Article> articles;
+    ArrayList<Article> articles;
     int state;
     public NewsFragment() {
         // Required empty public constructor
@@ -53,15 +54,18 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_news, container, false);
+
+        articles = new ArrayList<>();
         if(savedInstanceState!=null)
         {
 
             state = savedInstanceState.getInt("state");
+            articles.clear();
+            for(Parcelable parcelable : savedInstanceState.getParcelableArrayList("articles")){
+                articles.add((Article) parcelable);
+            }
 
         }
-        articles = new ArrayList<>();
-
-
         recyclerView = rootView.findViewById(R.id.news_recycler_view);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -74,9 +78,12 @@ public class NewsFragment extends Fragment {
             }
         });
         recyclerView.setAdapter(newsAdapter);
-        FetchNews fetchNews = new FetchNews();
-        fetchNews.execute();
 
+        if(savedInstanceState==null) {
+            FetchNews fetchNews = new FetchNews();
+            String input = getArguments().getString("input");
+            fetchNews.execute(input);
+        }
 
         // Inflate the layout for this fragment
         return rootView;
@@ -86,19 +93,21 @@ public class NewsFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("state",linearLayoutManager.findFirstVisibleItemPosition());
+        outState.putParcelableArrayList("articles",articles);
     }
 
-    private class FetchNews extends AsyncTask<Void,Void,List<Article>>{
+    private class FetchNews extends AsyncTask<String,Void,List<Article>>{
         @Override
-        protected List<Article> doInBackground(Void... voids) {
+        protected List<Article> doInBackground(String... strings) {
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
             String jsonResponse = null;
+            String input = strings[0];
 
             try {
                 Uri uri;
                 URL url;
-                uri = Uri.parse("https://newsapi.org/v2/top-headlines?category=general&country=us&apiKey=5f3648856de4494e82fa8fa2a27c07d2");
+                uri = Uri.parse("https://newsapi.org/v2/top-headlines?category="+input+"&country=us&apiKey=5f3648856de4494e82fa8fa2a27c07d2");
                 url = new URL(uri.toString());
 
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -145,10 +154,14 @@ public class NewsFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<Article> articlesr) {
-           articles.clear();
-           articles.addAll(articlesr);
-           newsAdapter.notifyDataSetChanged();
-           linearLayoutManager.scrollToPosition(state);
+           if(articlesr != null) {
+               articles.clear();
+               articles.addAll(articlesr);
+               newsAdapter.notifyDataSetChanged();
+               linearLayoutManager.scrollToPosition(state);
+           }else{
+              Toast.makeText(getContext(),"NO INTERNET",Toast.LENGTH_LONG).show();
+           }
         }
     }
 

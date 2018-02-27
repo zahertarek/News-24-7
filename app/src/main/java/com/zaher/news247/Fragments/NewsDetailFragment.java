@@ -4,6 +4,7 @@ package com.zaher.news247.Fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import com.zaher.news247.Models.Article;
 import com.zaher.news247.R;
@@ -31,6 +35,10 @@ public class NewsDetailFragment extends Fragment {
     ImageView image;
     TextView description;
     TextView full;
+    FloatingActionButton floatingActionButton;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth firebaseAuth;
+
     public NewsDetailFragment() {
         // Required empty public constructor
     }
@@ -46,6 +54,8 @@ public class NewsDetailFragment extends Fragment {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
         title = rootView.findViewById(R.id.article_title);
         author= rootView.findViewById(R.id.article_author);
         source = rootView.findViewById(R.id.article_source);
@@ -73,8 +83,13 @@ public class NewsDetailFragment extends Fragment {
         Picasso.with(getContext()).load(article.getUrlToImage()).fit().into(image);
 
 
-
-
+        floatingActionButton = rootView.findViewById(R.id.float_action_button);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDatabase.child(firebaseAuth.getCurrentUser().getUid()).child(article.getTitle()).setValue(article);
+            }
+        });
 
 
         return rootView;
