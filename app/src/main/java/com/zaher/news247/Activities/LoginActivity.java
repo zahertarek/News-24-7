@@ -55,14 +55,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // login logic goes here
                 if(!isValidEmail(email.getText().toString())){
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout,"Please enter a valid email",Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout,R.string.valid_email,Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }else if(email.getText().toString().isEmpty() || email.getText().toString().equals("")){
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout,"Please enter a valid email",Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout,R.string.valid_email,Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
                 else if(password.getText().toString().length()<6){
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout,"Please enter a valid password",Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout,R.string.valid_password,Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }else{
                     signin(email.getText().toString(),password.getText().toString());
@@ -102,12 +102,11 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(getBaseContext(),NewsActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("Email",email);
-                            mFirebaseAnalytics.logEvent("UserSignIn",bundle);
                             startActivity(intent);
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Snackbar snackbar = Snackbar.make(coordinatorLayout,"You Entered a wrong Password, Or You don't have an account",Snackbar.LENGTH_LONG);
+                            Snackbar snackbar = Snackbar.make(coordinatorLayout,R.string.sign_in_failed,Snackbar.LENGTH_LONG);
                             snackbar.show();
                         }
 

@@ -50,17 +50,17 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //signup logic goes here
                 if(email.getText().toString().isEmpty() || email.getText().toString().equals("")){
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout,"Please enter a valid email",Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout,R.string.valid_email,Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }else if(!isValidEmail(email.getText().toString())){
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout,"Please enter a valid email",Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout,R.string.valid_email,Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
                 else if(!password.getText().toString().equals(password1.getText().toString())){
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout,"The two passwords does not match",Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout,R.string.password_2,Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }else if(password.getText().toString().length() <6 ){
-                    Snackbar snackbar = Snackbar.make(coordinatorLayout,"Password must be 6 characters or more",Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(coordinatorLayout,R.string.password_6,Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }else{
                     signup(email.getText().toString(),password.getText().toString());
@@ -92,13 +92,13 @@ public class SignupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Snackbar snackbar = Snackbar.make(coordinatorLayout,"Signup Success",Snackbar.LENGTH_LONG);
+                            Snackbar snackbar = Snackbar.make(coordinatorLayout,R.string.signup_success,Snackbar.LENGTH_LONG);
                             snackbar.show();
                             Intent intent = new Intent(getBaseContext(),NewsActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Snackbar snackbar = Snackbar.make(coordinatorLayout,"Signup Error, Try again Later",Snackbar.LENGTH_LONG);
+                            Snackbar snackbar = Snackbar.make(coordinatorLayout,R.string.signup_error,Snackbar.LENGTH_LONG);
                             snackbar.show();
                         }
                     }

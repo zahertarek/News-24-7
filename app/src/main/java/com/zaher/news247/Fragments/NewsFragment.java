@@ -177,7 +177,7 @@ public class NewsFragment extends Fragment {
                linearLayoutManager.scrollToPosition(state);
                Paper.book().write("articles",articlesr);
            }else{
-              Toast.makeText(getContext(),"NO INTERNET",Toast.LENGTH_LONG).show();
+              Toast.makeText(getContext(),R.string.no_internet,Toast.LENGTH_LONG).show();
            }
         }
     }

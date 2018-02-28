@@ -27,6 +27,14 @@
     <string name="appwidget_text">New Widget</string>
     <string name="add_widget">Add widget</string>
 
-
-
+    <string name="float_button">Add This Article to favorites</string>
+    <string name="option_item_saved">Saved Articles</string>
+    <string name="valid_email">Please Enter a valid Email</string>
+    <string name="valid_password">Please Enter a valid Password</string>
+    <string name="sign_in_failed">"You Entered a wrong Password, Or You don't have an account"</string>
+    <string name="password_2">The two passwords does not match</string>
+    <string name="password_6">Password must be 6 characters or more</string>
+    <string name="signup_success">Signup Succeeded</string>
+    <string name="signup_error">Signup Failed</string>
+    <string name="no_internet">No Internet</string>
 </resources>
