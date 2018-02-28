@@ -33,6 +33,7 @@ public class NewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
+
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         if(toolbar==null){
             Log.e("Toolbar","NUL");

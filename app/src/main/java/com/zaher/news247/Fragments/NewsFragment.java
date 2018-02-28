@@ -34,6 +34,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.paperdb.Paper;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -96,6 +98,8 @@ public class NewsFragment extends Fragment {
             String input = getArguments().getString("input");
             fetchNews.execute(input);
         }
+
+        Paper.init(getActivity());
 
         // Inflate the layout for this fragment
         return rootView;
@@ -171,6 +175,7 @@ public class NewsFragment extends Fragment {
                articles.addAll(articlesr);
                newsAdapter.notifyDataSetChanged();
                linearLayoutManager.scrollToPosition(state);
+               Paper.book().write("articles",articlesr);
            }else{
               Toast.makeText(getContext(),"NO INTERNET",Toast.LENGTH_LONG).show();
            }

@@ -24,8 +24,9 @@
     <string name="nav_technology">Technology</string>
 
     <string name="sign_out_item">Sign Out</string>
-    <string name="appwidget_text">EXAMPLE</string>
+    <string name="appwidget_text">New Widget</string>
     <string name="add_widget">Add widget</string>
+
 
 
 </resources>
