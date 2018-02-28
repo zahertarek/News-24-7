@@ -44,6 +44,7 @@ public class NewsFragment extends Fragment {
     NewsAdapter newsAdapter;
     ArrayList<Article> articles;
     int state;
+    boolean isTwoPane;
     public NewsFragment() {
         // Required empty public constructor
     }
@@ -54,6 +55,9 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_news, container, false);
+
+        isTwoPane = getArguments().getBoolean("isTwoPane");
+        Log.e("2",""+isTwoPane);
 
         articles = new ArrayList<>();
         if(savedInstanceState!=null)
@@ -72,9 +76,17 @@ public class NewsFragment extends Fragment {
         newsAdapter = new NewsAdapter(articles, new NewsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int i) {
-                Intent intent = new Intent(getContext(), NewsDetailActivity.class);
-                intent.putExtra("Article",articles.get(i));
-                startActivity(intent);
+                if(isTwoPane){
+                    Bundle args = new Bundle();
+                    args.putParcelable("Article",articles.get(i));
+                    NewsDetailFragment newsDetailFragment = new NewsDetailFragment();
+                    newsDetailFragment.setArguments(args);
+                    getFragmentManager().beginTransaction().replace(R.id.news_detail_fragment_container,newsDetailFragment).commit();
+                }else {
+                    Intent intent = new Intent(getContext(), NewsDetailActivity.class);
+                    intent.putExtra("Article", articles.get(i));
+                    startActivity(intent);
+                }
             }
         });
         recyclerView.setAdapter(newsAdapter);

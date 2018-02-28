@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView signupText;
     private CoordinatorLayout coordinatorLayout;
     private FirebaseAuth mAuth;
+    private FirebaseAnalytics mFirebaseAnalytics;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mAuth = FirebaseAuth.getInstance();
         coordinatorLayout = findViewById(R.id.signin_layout);
         email = (EditText) findViewById(R.id.email_sign_in);
@@ -63,6 +66,9 @@ public class LoginActivity extends AppCompatActivity {
                     snackbar.show();
                 }else{
                     signin(email.getText().toString(),password.getText().toString());
+//                    Intent intent = new Intent(getBaseContext(),NewsActivity.class);
+//                    startActivity(intent);
+
                 }
             }
         });
@@ -85,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void signin(String email,String password){
+    private void signin(final String email, String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -94,7 +100,9 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent intent = new Intent(getBaseContext(),NewsActivity.class);
-
+                            Bundle bundle = new Bundle();
+                            bundle.putString("Email",email);
+                            mFirebaseAnalytics.logEvent("UserSignIn",bundle);
                             startActivity(intent);
 
                         } else {

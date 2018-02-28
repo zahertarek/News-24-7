@@ -21,7 +21,17 @@
         <activity android:name=".Activities.SignupActivity" />
         <activity android:name=".Activities.NewsActivity" />
         <activity android:name=".Activities.NewsDetailActivity" />
-        <activity android:name=".Activities.FavoritesActivity"></activity>
+        <activity android:name=".Activities.FavoritesActivity" />
+
+        <receiver android:name=".Activities.NewAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/new_app_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.zaher.news247.Fragments.NewsDetailFragment;
 import com.zaher.news247.Fragments.NewsFragment;
 import com.zaher.news247.R;
 
@@ -25,11 +27,17 @@ public class NewsActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private FirebaseAuth firebaseAuth;
+    boolean isTwoPane;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
+
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        if(toolbar==null){
+            Log.e("Toolbar","NUL");
+        }
+
         setSupportActionBar(toolbar);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -37,11 +45,16 @@ public class NewsActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        if(findViewById(R.id.news_detail_fragment_container) != null){
+            isTwoPane = true;
+        }
+
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerLayout = navigationView.getHeaderView(0);
         TextView header = headerLayout.findViewById(R.id.header_title);
-        header.setText(firebaseAuth.getCurrentUser().getEmail().toString());
+        if(firebaseAuth.getCurrentUser() !=null)
+            header.setText(firebaseAuth.getCurrentUser().getEmail().toString());
 
         navigationView.getMenu().getItem(2).setChecked(true);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -49,6 +62,7 @@ public class NewsActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 item.setChecked(true);
                 Bundle args = new Bundle();
+                args.putBoolean("isTwoPane",isTwoPane);
                 switch (item.getItemId()){
 
                     case R.id.nav_sports:
@@ -73,6 +87,7 @@ public class NewsActivity extends AppCompatActivity {
 
 
 
+
                 drawerLayout.closeDrawers();
 
 
@@ -84,6 +99,7 @@ public class NewsActivity extends AppCompatActivity {
         if(savedInstanceState==null) {
             Bundle args = new Bundle();
             args.putString("input","general");
+            args.putBoolean("isTwoPane",isTwoPane);
             NewsFragment newsFragment = new NewsFragment();
             newsFragment.setArguments(args);
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
